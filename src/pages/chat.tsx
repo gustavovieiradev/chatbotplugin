@@ -85,7 +85,8 @@ export default function Chat({data}: ChatProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async({params}) => {
+  const { id } = params;
   const response: any = await fauna.query(
     q.Map(
       q.Paginate(

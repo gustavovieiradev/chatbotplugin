@@ -110,26 +110,22 @@ export default function Home({data}: ChatProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async({params}) => {
+  const { id } = params;
   const response: any = await fauna.query(
-    q.Map(
-      q.Paginate(
-        q.Match(q.Index('ix_config')),
-      ),
-      q.Lambda("X", q.Get(q.Var("X")))
+    q.Get(
+      q.Match(
+        q.Index('ix_config_id_project'),
+        id
+      )
     )
   )
 
-  const config = response.data.map(res => {
-    return {
-      title: `${res.data.title} - HMG`,
-      theme: res.data.theme,
-    }
-  });
+  const config = response.data;
 
   return {
     props: {
-      data: config.length ? config[config.length - 1] : {
+      data: (config && config.title) ? config : {
         title: 'Bem-vindo - HMG',
         theme: 'teal'
       }
