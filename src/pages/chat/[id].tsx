@@ -29,8 +29,6 @@ export default function Chat({data}: ChatProps) {
       const response = await api.post('/conversation', { message });
       const result = response.data;
 
-      console.log(result);
-
       setMessages([...messages, {
         message,
         sender: 'user'

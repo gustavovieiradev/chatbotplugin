@@ -61,7 +61,7 @@ export default function Home({data}: ChatProps) {
         <Flex justify="flex-end" align="end">
           <Box position="relative">
             <Flex as="header" bg={data.theme} height="75" width="310px" borderTopRadius="10" align="center" px="5">
-              <Text color="white" fontSize="20">Bem vindo</Text>
+              <Text color="white" fontSize="20">{data.title}</Text>
             </Flex>
             <Box bg="white" h="600" borderBottomRadius="10" overflowX="hidden" overflowY="auto">
               <Stack spacing="2" p="2" >
@@ -122,6 +122,8 @@ export const getServerSideProps: GetServerSideProps = async({params}) => {
   )
 
   const config = response.data;
+
+
 
   return {
     props: {
